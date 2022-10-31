@@ -10,7 +10,7 @@
 void printBoard(char table[])
 {
     system("cls");
-    printf("-------------\n| %c | %c | %c |\n| %c | %c | %c |\n| %c | %c | %c |\n-------------\n",table[0],table[1],table[2],table[3],table[4],table[5],table[6],table[7],table[8]);
+    printf("-------------\n| %c | %c | %c |\n-------------\n| %c | %c | %c |\n-------------\n| %c | %c | %c |\n-------------\n",table[0],table[1],table[2],table[3],table[4],table[5],table[6],table[7],table[8]);
 }
 bool winCheck(char table[])
 {
@@ -18,7 +18,7 @@ bool winCheck(char table[])
     int possibilities[8][3]= {{1,2,3},{4,5,6}, {7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
     for(int i=0; i<=8; i++)
     {
-        if((table[possibilities[i][0]-1]==table[possibilities[i][1]-1])&&(table[possibilities[i][1]-1]==table[possibilities[i][2]-1]))
+        if((table[possibilities[i][0]-1]==table[possibilities[i][1]-1])&&(table[possibilities[i][1]-1]==table[possibilities[i][2]-1]))//&&(table[possibilities[i][0]-1]==table[possibilities[i][2]-1]))
         {
             result=true;
         }
@@ -33,7 +33,7 @@ int main()
     printf("Enter to start");
     do
     {
-        key=getch();
+        key=_getch();
     }
     while (key!=13);
     system("cls");
@@ -46,15 +46,16 @@ int main()
     do
     {
 
-if(turn>=9){
-    break;
-}
+        if(turn>=9)
+        {
+            break;
+        }
         int pcase;
         char played= toPlay==1?'X':'O';
         do
         {
             printf("Player%d turn n%d choose case:",toPlay,turn+1);
-            scanf("%d",&pcase);
+            scanf_s("%d",&pcase);
             printf("\n");
         }
         while(pcase<=0||pcase>9||game[pcase-1]=='X'||game[pcase-1]=='O');
@@ -72,11 +73,32 @@ if(turn>=9){
     while (!won);
     int winner=toPlay==1?2:1;
     //system("cls");
-    if(won){
-      printf("Winner is player %d",winner);
-    } else if(!won) {
-    printf("Draw");
+    if(won)
+    {
+        printf("Winner is player %d",winner);
     }
+    else if(!won)
+    {
+        printf("Draw");
+    }
+    printf("\nPlay again ?");
+    do
+    {
+        int key=getch();
+        switch(key)
+        {
+        case 13:
+            system("cls");
+            main();
+            break;
+        case 27:
+            return 0;
+        default:
+            printf("\n Press escape to exit the game");
+            break;
+        }
+    }
+    while(key!=13||key!=27);
 
     return 0;
 

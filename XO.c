@@ -12,15 +12,15 @@ void printBoard(char table[])
     system("cls");
     printf("-------------\n| %c | %c | %c |\n-------------\n| %c | %c | %c |\n-------------\n| %c | %c | %c |\n-------------\n",table[0],table[1],table[2],table[3],table[4],table[5],table[6],table[7],table[8]);
 }
-bool winCheck(char table[])
+int winCheck(char table[])
 {
-    bool result=false;
+    int result=0;
     int possibilities[8][3]= {{1,2,3},{4,5,6}, {7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
     for(int i=0; i<=8; i++)
     {
         if((table[possibilities[i][0]-1]==table[possibilities[i][1]-1])&&(table[possibilities[i][1]-1]==table[possibilities[i][2]-1]))//&&(table[possibilities[i][0]-1]==table[possibilities[i][2]-1]))
         {
-            result=true;
+            result=1;
         }
     }
 
@@ -55,7 +55,7 @@ int main()
         do
         {
             printf("Player%d turn n%d choose case:",toPlay,turn+1);
-            scanf_s("%d",&pcase);
+            scanf("%d",&pcase);
             printf("\n");
         }
         while(pcase<=0||pcase>9||game[pcase-1]=='X'||game[pcase-1]=='O');
@@ -66,7 +66,7 @@ int main()
         turn++;
         if(turn>=5)
         {
-            won=winCheck(game);
+            won=winCheck(game)==1?true : false;
         }
 
     }
